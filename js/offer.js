@@ -98,8 +98,8 @@ function renderOffer(o) {
 
     // Estimated benefits row
     compRows += `
-        <div class="comp-row">
-            <div class="comp-label"><span class="comp-dot" style="background:#E9EBD6"></span> Estimated Benefits</div>
+        <div class="comp-row comp-row-link" onclick="document.getElementById('benefits-section').scrollIntoView({behavior:'smooth'})">
+            <div class="comp-label"><span class="comp-dot" style="background:#E9EBD6"></span> Estimated Benefits <span style="font-size:12px;color:var(--purple);margin-left:4px;">↓</span></div>
             <div class="comp-amount">${fmtCurrency(estimatedBenefits)}</div>
         </div>`;
     chartLabels.push('Est. Benefits');
@@ -270,7 +270,7 @@ function renderOffer(o) {
             </div>
 
             <!-- Benefits Section -->
-            <div class="section">
+            <div class="section" id="benefits-section">
                 <div class="section-header">Benefits</div>
                 <div class="benefits-value-bar">
                     <span class="bv-label">Estimated Annual Benefits Value</span>

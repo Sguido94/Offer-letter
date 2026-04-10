@@ -254,6 +254,16 @@
     border-bottom: 1px solid var(--border);
 }
 
+.comp-row-link {
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.comp-row-link:hover {
+    background: var(--paper);
+}
+
 .comp-row:last-child {
     border-bottom: none;
     padding-top: 20px;
