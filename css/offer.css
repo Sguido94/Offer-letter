@@ -422,9 +422,8 @@
 
 .benefit-card {
     padding: 30px;
-    background: var(--paper);
     border-radius: 16px;
-    border-left: 4px solid var(--purple);
+    border: none;
     transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.25s ease;
 }
 
@@ -432,6 +431,13 @@
     transform: translateY(-3px);
     box-shadow: 0 8px 28px rgba(0,0,0,0.07);
 }
+
+.benefit-card:nth-child(1) { background: rgba(112, 54, 255, 0.06); }
+.benefit-card:nth-child(2) { background: rgba(253, 116, 47, 0.06); }
+.benefit-card:nth-child(3) { background: rgba(109, 114, 66, 0.06); }
+.benefit-card:nth-child(4) { background: rgba(68, 9, 74, 0.06); }
+.benefit-card:nth-child(5) { background: rgba(76, 175, 80, 0.06); }
+.benefit-card:nth-child(6) { background: rgba(255, 152, 0, 0.06); }
 
 .benefit-card .benefit-icon {
     width: 46px;
@@ -445,18 +451,12 @@
     font-weight: 700;
 }
 
-.benefit-card:nth-child(1) .benefit-icon { background: rgba(112, 54, 255, 0.1); color: var(--purple); }
-.benefit-card:nth-child(2) .benefit-icon { background: rgba(253, 116, 47, 0.1); color: var(--orange); }
-.benefit-card:nth-child(3) .benefit-icon { background: rgba(109, 114, 66, 0.1); color: var(--green-dark); }
-.benefit-card:nth-child(4) .benefit-icon { background: rgba(68, 9, 74, 0.1); color: var(--dark-purple); }
-.benefit-card:nth-child(5) .benefit-icon { background: rgba(76, 175, 80, 0.1); color: #2d6a2d; }
-.benefit-card:nth-child(6) .benefit-icon { background: rgba(255, 152, 0, 0.1); color: #b8860b; }
-
-.benefit-card:nth-child(2) { border-left-color: var(--orange); }
-.benefit-card:nth-child(3) { border-left-color: var(--green-accent); }
-.benefit-card:nth-child(4) { border-left-color: var(--dark-purple); }
-.benefit-card:nth-child(5) { border-left-color: #4caf50; }
-.benefit-card:nth-child(6) { border-left-color: #ff9800; }
+.benefit-card:nth-child(1) .benefit-icon { background: rgba(112, 54, 255, 0.12); color: var(--purple); }
+.benefit-card:nth-child(2) .benefit-icon { background: rgba(253, 116, 47, 0.12); color: var(--orange); }
+.benefit-card:nth-child(3) .benefit-icon { background: rgba(109, 114, 66, 0.12); color: var(--green-dark); }
+.benefit-card:nth-child(4) .benefit-icon { background: rgba(68, 9, 74, 0.12); color: var(--dark-purple); }
+.benefit-card:nth-child(5) .benefit-icon { background: rgba(76, 175, 80, 0.12); color: #2d6a2d; }
+.benefit-card:nth-child(6) .benefit-icon { background: rgba(255, 152, 0, 0.12); color: #b8860b; }
 
 .benefit-card h4 {
     font-size: 16px;
