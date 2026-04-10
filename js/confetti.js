@@ -25,6 +25,7 @@
     let W, H;
     let animFrame;
     let startTime;
+    let logoShown = false;
 
     function resize() {
         W = canvas.width = window.innerWidth;
@@ -174,14 +175,20 @@
 
         ctx.globalAlpha = 1;
 
-        // After 3.5 seconds, start fading out the splash
-        if (elapsed > 3500) {
-            const fadeProgress = Math.min((elapsed - 3500) / 800, 1);
+        // Phase 1: After 2s, stop new confetti and show logo
+        if (elapsed > 2000 && !logoShown) {
+            logoShown = true;
+            clearInterval(confettiInterval);
+            const logoEl = document.getElementById('splashLogo');
+            if (logoEl) logoEl.classList.add('visible');
+        }
+
+        // Phase 2: After 4s (logo has been visible ~2s), fade out splash
+        if (elapsed > 4000) {
+            const fadeProgress = Math.min((elapsed - 4000) / 800, 1);
             splash.style.opacity = 1 - fadeProgress;
 
             if (fadeProgress >= 1) {
-                // Done — remove splash and stop animation
-                clearInterval(confettiInterval);
                 splash.style.display = 'none';
                 cancelAnimationFrame(animFrame);
                 return;
