@@ -10,22 +10,8 @@
     width: 100%;
     height: 100%;
     z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: var(--black);
     transition: opacity 0.8s ease;
-}
-
-.splash-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.6;
-    z-index: 0;
 }
 
 #confetti-canvas {
@@ -35,39 +21,6 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    pointer-events: none;
-}
-
-.splash-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    animation: splashReveal 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both;
-}
-
-.splash-logo {
-    width: 220px;
-    margin-bottom: 24px;
-    filter: drop-shadow(0 4px 20px rgba(112, 54, 255, 0.4));
-}
-
-.splash-tagline {
-    font-family: 'Arizona Flare', 'DM Serif Display', serif;
-    font-size: 32px;
-    color: white;
-    opacity: 0;
-    animation: splashText 0.8s ease 1s both;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-}
-
-@keyframes splashReveal {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes splashText {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Smooth entrance animations */
@@ -458,6 +411,171 @@
 
 .formula-callout strong {
     color: var(--purple);
+}
+
+/* ========================================
+   EQUITY CALCULATOR
+   ======================================== */
+.equity-calculator {
+    margin-top: 40px;
+    padding: 36px;
+    background: var(--paper);
+    border-radius: 16px;
+}
+
+.equity-calculator h4 {
+    font-family: 'Arizona Flare', 'DM Serif Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+}
+
+.calc-subtitle {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 28px;
+}
+
+.calc-slider-wrap {
+    margin-bottom: 32px;
+}
+
+.calc-slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.calc-val-display {
+    font-family: 'Arizona Flare', 'DM Serif Display', serif;
+    font-size: 24px;
+    color: var(--purple);
+    font-weight: 400;
+}
+
+.calc-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(
+        to right,
+        var(--purple) 0%,
+        var(--purple) var(--fill, 50%),
+        #e0ddd8 var(--fill, 50%),
+        #e0ddd8 100%
+    );
+    outline: none;
+    cursor: pointer;
+}
+
+.calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--purple);
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(112, 54, 255, 0.3);
+    cursor: grab;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.calc-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 3px 12px rgba(112, 54, 255, 0.45);
+}
+
+.calc-slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+.calc-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--purple);
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(112, 54, 255, 0.3);
+    cursor: grab;
+}
+
+.calc-slider-range {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-top: 6px;
+}
+
+.calc-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.calc-result-card {
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calc-result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.calc-result-card.highlight {
+    background: rgba(112, 54, 255, 0.04);
+    border-color: rgba(112, 54, 255, 0.15);
+}
+
+.calc-result-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+}
+
+.calc-result-value {
+    font-family: 'Arizona Flare', 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--black);
+    letter-spacing: -0.3px;
+}
+
+.calc-result-card.highlight .calc-result-value {
+    color: var(--purple);
+}
+
+.calc-disclaimer {
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-top: 20px;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .calc-results {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .calc-result-card {
+        padding: 16px;
+    }
+    .calc-result-value {
+        font-size: 20px;
+    }
 }
 
 /* Equity bar chart */

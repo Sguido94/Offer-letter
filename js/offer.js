@@ -109,7 +109,7 @@ function renderOffer(o) {
 
     compRows += `
         <div class="comp-row">
-            <div class="comp-label">Total First Year Compensation</div>
+            <div class="comp-label">Total First Year Comp</div>
             <div class="comp-amount">${fmtCurrency(totalWithBenefits)}</div>
         </div>`;
 
@@ -260,6 +260,47 @@ function renderOffer(o) {
                     </div>
                 </div>
 
+                <!-- Interactive Equity Calculator -->
+                <div class="equity-calculator">
+                    <h4>Equity Scenario Calculator</h4>
+                    <p class="calc-subtitle">Drag the slider to model your equity value at different company valuations.</p>
+
+                    <div class="calc-slider-wrap">
+                        <label class="calc-slider-label">
+                            <span>Company Valuation</span>
+                            <span class="calc-val-display" id="calcValuationDisplay">$${o.lastValuation}M</span>
+                        </label>
+                        <input type="range" id="calcSlider" class="calc-slider"
+                            min="100" max="5000" step="25" value="${o.lastValuation}"
+                        >
+                        <div class="calc-slider-range">
+                            <span>$100M</span>
+                            <span>$5B</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-results">
+                        <div class="calc-result-card">
+                            <div class="calc-result-label">Implied Share Price</div>
+                            <div class="calc-result-value" id="calcSharePrice">${fmtCurrencyDecimal(o.preferredPrice)}</div>
+                        </div>
+                        <div class="calc-result-card highlight">
+                            <div class="calc-result-label">Your Grant Value</div>
+                            <div class="calc-result-value" id="calcGrantValue">${fmtCurrency(grantValue)}</div>
+                        </div>
+                        <div class="calc-result-card">
+                            <div class="calc-result-label">Net Value (after exercise)</div>
+                            <div class="calc-result-value" id="calcNetValue">${fmtCurrency(netEquityValue)}</div>
+                        </div>
+                        <div class="calc-result-card">
+                            <div class="calc-result-label">Return Multiple</div>
+                            <div class="calc-result-value" id="calcMultiple">${(grantValue / costToExercise).toFixed(1)}x</div>
+                        </div>
+                    </div>
+
+                    <p class="calc-disclaimer">This is an illustrative model only. Actual outcomes depend on future company performance, dilution, and exit events.</p>
+                </div>
+
                 <!-- Equity Opportunity Chart -->
                 <div class="equity-chart-wrap">
                     <h4>Equity Opportunity</h4>
@@ -301,7 +342,51 @@ function renderOffer(o) {
     setTimeout(() => {
         renderDonutChart(chartLabels, chartData, chartColors);
         renderEquityChart(barLabels, barData);
+        initEquityCalculator(o);
     }, 50);
+}
+
+function initEquityCalculator(o) {
+    const slider = document.getElementById('calcSlider');
+    if (!slider) return;
+
+    // We need to figure out shares outstanding from valuation & preferred price
+    // lastValuation (in $M) / preferredPrice = total shares outstanding (in millions)
+    const sharesOutstanding = (o.lastValuation * 1000000) / o.preferredPrice;
+    const exerciseCost = o.shares * o.strikePrice;
+
+    function updateCalc() {
+        const valuation = parseInt(slider.value);
+        const impliedPrice = (valuation * 1000000) / sharesOutstanding;
+        const grantVal = o.shares * impliedPrice;
+        const netVal = grantVal - exerciseCost;
+        const multiple = exerciseCost > 0 ? grantVal / exerciseCost : 0;
+
+        // Format valuation display
+        let valDisplay;
+        if (valuation >= 1000) {
+            valDisplay = '$' + (valuation / 1000).toFixed(1).replace(/\.0$/, '') + 'B';
+        } else {
+            valDisplay = '$' + valuation + 'M';
+        }
+
+        document.getElementById('calcValuationDisplay').textContent = valDisplay;
+        document.getElementById('calcSharePrice').textContent = fmtCurrencyDecimal(impliedPrice);
+        document.getElementById('calcGrantValue').textContent = fmtCurrency(Math.round(grantVal));
+        document.getElementById('calcNetValue').textContent = (netVal >= 0 ? '' : '-') + fmtCurrency(Math.abs(Math.round(netVal)));
+        document.getElementById('calcMultiple').textContent = multiple.toFixed(1) + 'x';
+
+        // Color the net value
+        const netEl = document.getElementById('calcNetValue');
+        netEl.style.color = netVal >= 0 ? 'var(--purple)' : '#c0392b';
+
+        // Update slider fill
+        const pct = ((valuation - 100) / (5000 - 100)) * 100;
+        slider.style.setProperty('--fill', pct + '%');
+    }
+
+    slider.addEventListener('input', updateCalc);
+    updateCalc(); // Initialize
 }
 
 function renderDonutChart(labels, data, colors) {
