@@ -168,7 +168,7 @@ function renderOffer(o) {
     document.getElementById('app').innerHTML = `
         <!-- Hero -->
         <div class="hero">
-            <div class="logo-text">NUMERIC</div>
+            <img src="assets/logo-white.svg" alt="Numeric" class="hero-logo">
             <h1>Welcome, ${firstName(o.candidateName)}!</h1>
             <p class="subtitle">We're thrilled to extend this offer to you.</p>
         </div>
@@ -285,7 +285,7 @@ function renderOffer(o) {
 
             <!-- Footer -->
             <div class="offer-footer">
-                <div class="logo-text-sm">NUMERIC</div>
+                <img src="assets/logo-black.svg" alt="Numeric" class="footer-logo">
                 <p>This offer is confidential and intended solely for the recipient.</p>
             </div>
         </div>

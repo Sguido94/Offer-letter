@@ -20,11 +20,17 @@
     pointer-events: none;
 }
 
-.hero .logo-text {
-    color: var(--white);
+.hero-logo {
+    height: 32px;
+    width: auto;
     margin-bottom: 40px;
     position: relative;
-    font-size: 28px;
+}
+
+.footer-logo {
+    height: 20px;
+    width: auto;
+    margin-bottom: 8px;
 }
 
 .hero h1 {

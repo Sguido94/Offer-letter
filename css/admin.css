@@ -16,6 +16,17 @@
     gap: 16px;
 }
 
+.nav-logo {
+    height: 24px;
+    width: auto;
+}
+
+.footer-logo {
+    height: 20px;
+    width: auto;
+    margin-bottom: 8px;
+}
+
 .nav-badge {
     font-size: 12px;
     font-weight: 600;
