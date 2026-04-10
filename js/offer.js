@@ -182,7 +182,7 @@ function renderOffer(o) {
             <!-- Welcome Card -->
             <div class="welcome-card">
                 <h2>Offer Summary</h2>
-                <p>We're excited to offer you the position of <strong>${o.position}</strong> at Numeric. Below you'll find the details of your compensation package, equity opportunity, and benefits.</p>
+                <p>We're excited to offer you the position of <strong>${o.position}</strong> at Numeric! Below you'll find the details of your compensation package, equity opportunity, and benefits.</p>
                 <div class="detail-row">
                     ${detailItems}
                 </div>
