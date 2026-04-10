@@ -270,9 +270,12 @@ function renderOffer(o) {
                             <span>Company Valuation</span>
                             <span class="calc-val-display" id="calcValuationDisplay">$${o.lastValuation}M</span>
                         </label>
-                        <input type="range" id="calcSlider" class="calc-slider"
-                            min="100" max="5000" step="25" value="${o.lastValuation}"
-                        >
+                        <div style="position:relative;">
+                            <input type="range" id="calcSlider" class="calc-slider"
+                                min="100" max="5000" step="25" value="${o.lastValuation}"
+                            >
+                            <span class="calc-unicorn-emoji" id="calcUnicorn">🦄</span>
+                        </div>
                         <div class="calc-slider-range">
                             <span>$100M</span>
                             <span>$5B</span>
@@ -383,6 +386,20 @@ function initEquityCalculator(o) {
         // Update slider fill
         const pct = ((valuation - 100) / (5000 - 100)) * 100;
         slider.style.setProperty('--fill', pct + '%');
+
+        // Unicorn mode at $1B+
+        const unicornEl = document.getElementById('calcUnicorn');
+        if (valuation >= 1000) {
+            slider.classList.add('unicorn');
+            unicornEl.classList.add('visible');
+        } else {
+            slider.classList.remove('unicorn');
+            unicornEl.classList.remove('visible');
+        }
+        // Position unicorn emoji over the slider thumb
+        const sliderRect = slider.getBoundingClientRect();
+        const thumbX = ((valuation - 100) / (5000 - 100)) * sliderRect.width;
+        unicornEl.style.left = thumbX + 'px';
     }
 
     slider.addEventListener('input', updateCalc);

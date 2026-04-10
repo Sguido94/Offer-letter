@@ -10,8 +10,9 @@
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background: var(--black);
+    background: #080707;
     transition: opacity 0.8s ease;
+    overflow: hidden;
 }
 
 #confetti-canvas {
@@ -39,7 +40,8 @@
 }
 
 .splash-logo {
-    width: 240px;
+    width: 200px;
+    max-width: 50vw;
     filter: drop-shadow(0 4px 24px rgba(112, 54, 255, 0.35));
 }
 
@@ -517,6 +519,16 @@
     transform: scale(1.1);
 }
 
+/* Unicorn mode at $1B+ */
+.calc-slider.unicorn::-webkit-slider-thumb {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: 2px;
+    height: 2px;
+    opacity: 0;
+}
+
 .calc-slider::-moz-range-thumb {
     width: 24px;
     height: 24px;
@@ -525,6 +537,31 @@
     border: 3px solid white;
     box-shadow: 0 2px 8px rgba(112, 54, 255, 0.3);
     cursor: grab;
+}
+
+.calc-slider.unicorn::-moz-range-thumb {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: 2px;
+    height: 2px;
+    opacity: 0;
+}
+
+.calc-unicorn-emoji {
+    position: absolute;
+    font-size: 28px;
+    line-height: 1;
+    pointer-events: none;
+    top: -8px;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    z-index: 2;
+}
+
+.calc-unicorn-emoji.visible {
+    opacity: 1;
 }
 
 .calc-slider-range {
