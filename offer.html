@@ -14,9 +14,22 @@
 </head>
 <body>
 
+    <!-- Splash Screen -->
+    <div id="splash">
+        <video class="splash-video" autoplay muted loop playsinline>
+            <source src="assets/Numeric-data-motion-01-purple-white.mp4" type="video/mp4">
+        </video>
+        <canvas id="confetti-canvas"></canvas>
+        <div class="splash-content">
+            <img src="assets/logo-white.svg" alt="Numeric" class="splash-logo">
+            <p class="splash-tagline">You have an offer!</p>
+        </div>
+    </div>
+
     <!-- Content rendered by JS -->
     <div id="app"></div>
 
     <script src="js/offer.js"></script>
+    <script src="js/confetti.js"></script>
 </body>
 </html>
