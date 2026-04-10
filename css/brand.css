@@ -1,3 +1,67 @@
+/* Numeric Brand Fonts */
+@font-face {
+    font-family: 'Arizona Flare';
+    src: url('../assets/ABCArizonaFlare-Light.woff') format('woff'),
+         url('../assets/ABCArizonaFlare-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Booton';
+    src: url('../assets/Booton-Regular.woff2') format('woff2'),
+         url('../assets/Booton-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Booton';
+    src: url('../assets/Booton-RegularItalic.woff2') format('woff2'),
+         url('../assets/Booton-RegularItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Booton';
+    src: url('../assets/Booton-Medium.woff2') format('woff2'),
+         url('../assets/Booton-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Booton';
+    src: url('../assets/Booton-MediumItalic.woff2') format('woff2'),
+         url('../assets/Booton-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Booton';
+    src: url('../assets/Booton-Semibold.woff2') format('woff2'),
+         url('../assets/Booton-Semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Booton';
+    src: url('../assets/Booton-SemiboldItalic.woff2') format('woff2'),
+         url('../assets/Booton-SemiboldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
 /* Numeric Brand Tokens */
 :root {
     --purple: #7036FF;
@@ -27,7 +91,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Booton', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--paper);
     color: var(--black);
     line-height: 1.6;
@@ -57,7 +121,7 @@ body {
     gap: 8px;
     padding: 12px 28px;
     border-radius: var(--radius-xs);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Booton', 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 600;
     border: none;

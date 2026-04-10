@@ -168,9 +168,14 @@ function renderOffer(o) {
     document.getElementById('app').innerHTML = `
         <!-- Hero -->
         <div class="hero">
-            <img src="assets/logo-white.svg" alt="Numeric" class="hero-logo">
-            <h1>Welcome, ${firstName(o.candidateName)}!</h1>
-            <p class="subtitle">We're thrilled to extend this offer to you.</p>
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="assets/Numeric-data-motion-01-purple-black.mp4" type="video/mp4">
+            </video>
+            <div class="hero-content">
+                <img src="assets/logo-white.svg" alt="Numeric" class="hero-logo">
+                <h1>Welcome, ${firstName(o.candidateName)}!</h1>
+                <p class="subtitle">We're thrilled to extend this offer to you.</p>
+            </div>
         </div>
 
         <div class="offer-container">
