@@ -430,6 +430,21 @@ function handleAccept() {
         window.triggerCelebration();
     }
 
+    // Send acceptance email notification
+    const offer = decodeOffer(window.location.hash.slice(1));
+    if (offer) {
+        const to = 'sara@numeric.io,sam@numeric.io,parker@numeric.io';
+        const subject = encodeURIComponent(`${offer.candidateName} has accepted their offer!`);
+        const body = encodeURIComponent(
+            `Great news!\n\n${offer.candidateName} has accepted the ${offer.position} offer at Numeric.\n\n` +
+            `Start Date: ${offer.startDate}\n` +
+            `Base Salary: ${fmtCurrency(offer.baseSalary)}\n` +
+            `Equity: ${offer.shares.toLocaleString()} shares\n\n` +
+            `— Sent automatically from the Numeric Offer Letter`
+        );
+        window.open(`mailto:${to}?subject=${subject}&body=${body}`, '_self');
+    }
+
     // Scroll to make the confirmation visible
     confirmed.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
