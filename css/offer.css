@@ -290,7 +290,7 @@
     font-size: 15px;
     font-weight: 600;
     color: var(--black);
-    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.3px;
 }
 
 .comp-row:last-child .comp-label,
@@ -358,7 +358,7 @@
 }
 
 .eq-row .eq-label { color: #666; }
-.eq-row .eq-value { font-weight: 600; color: var(--black); font-variant-numeric: tabular-nums; }
+.eq-row .eq-value { font-weight: 600; color: var(--black); letter-spacing: -0.3px; }
 
 .eq-row.highlight {
     border-bottom: none;

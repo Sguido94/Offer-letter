@@ -88,7 +88,7 @@ function renderOffer(o) {
             const isEquity = item.label.includes('Equity');
             compRows += `
                 <div class="comp-row${isEquity ? ' comp-row-link' : ''}"${isEquity ? ` onclick="document.getElementById('equity-section').scrollIntoView({behavior:'smooth'})"` : ''}>
-                    <div class="comp-label"><span class="comp-dot" style="background:${item.color}"></span> ${item.label}${isEquity ? ' <span style="font-size:12px;color:var(--purple);margin-left:4px;">↓</span>' : ''}</div>
+                    <div class="comp-label"><span class="comp-dot" style="background:${item.color}"></span><span>${item.label}${isEquity ? ' <span style="font-size:12px;color:var(--purple);">↓</span>' : ''}</span></div>
                     <div class="comp-amount">${fmtCurrency(item.amount)}</div>
                 </div>`;
             chartLabels.push(item.label);
@@ -100,7 +100,7 @@ function renderOffer(o) {
     // Estimated benefits row
     compRows += `
         <div class="comp-row comp-row-link" onclick="document.getElementById('benefits-section').scrollIntoView({behavior:'smooth'})">
-            <div class="comp-label"><span class="comp-dot" style="background:#E9EBD6"></span> Estimated Benefits <span style="font-size:12px;color:var(--purple);margin-left:4px;">↓</span></div>
+            <div class="comp-label"><span class="comp-dot" style="background:#E9EBD6"></span><span>Estimated Benefits <span style="font-size:12px;color:var(--purple);">↓</span></span></div>
             <div class="comp-amount">${fmtCurrency(estimatedBenefits)}</div>
         </div>`;
     chartLabels.push('Est. Benefits');
