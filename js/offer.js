@@ -1,19 +1,26 @@
 /**
  * Candidate-facing offer letter renderer.
- * Reads offer ID from URL params, loads data from store, renders the full page.
+ * Reads offer data from the URL hash (self-contained, no database needed).
+ * Falls back to localStorage for backward compatibility.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
+    let offer = null;
 
-    if (!id) {
-        showError('No offer ID provided.');
-        return;
+    // Primary: decode offer data from URL hash
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+        offer = decodeOffer(hash);
     }
 
-    const offer = OfferStore.get(id);
+    // Fallback: try localStorage by query param ID
     if (!offer) {
-        showError('Offer not found. The link may have expired or been removed.');
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (id) offer = OfferStore.get(id);
+    }
+
+    if (!offer) {
+        showError('Offer not found. The link may be invalid or expired.');
         return;
     }
 

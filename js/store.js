@@ -55,3 +55,33 @@ function fmtCompact(n) {
 function firstName(full) {
     return (full || '').split(' ')[0];
 }
+
+/**
+ * Encode offer data into a URL-safe base64 string.
+ * This makes links fully self-contained -- no database needed.
+ */
+function encodeOffer(offer) {
+    const json = JSON.stringify(offer);
+    return btoa(unescape(encodeURIComponent(json)));
+}
+
+/**
+ * Decode offer data from a URL-safe base64 string.
+ */
+function decodeOffer(encoded) {
+    try {
+        const json = decodeURIComponent(escape(atob(encoded)));
+        return JSON.parse(json);
+    } catch (e) {
+        return null;
+    }
+}
+
+/**
+ * Build a shareable offer URL with all data encoded in the hash.
+ */
+function buildOfferURL(offer, baseURL) {
+    const encoded = encodeOffer(offer);
+    const base = baseURL || window.location.href.replace(/[^/]*$/, '');
+    return base + 'offer.html#' + encoded;
+}

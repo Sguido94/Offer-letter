@@ -16,19 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const offer = collectFormData();
         const saved = OfferStore.save(offer);
         renderOffersList();
-        showToast(`Offer created for ${saved.candidateName}!`);
 
-        // Open the offer letter in a new tab
-        const url = `offer.html?id=${saved.id}`;
+        // Build self-contained URL and open it
+        const url = buildOfferURL(offer);
+        showToast(`Offer created for ${saved.candidateName}!`);
         window.open(url, '_blank');
     });
 
     previewBtn.addEventListener('click', () => {
         const offer = collectFormData();
-        // Save temporarily for preview
-        offer.id = '_preview';
-        OfferStore.save(offer);
-        window.open('offer.html?id=_preview', '_blank');
+        const url = buildOfferURL(offer);
+        window.open(url, '_blank');
     });
 });
 
@@ -101,6 +99,7 @@ function renderOffersList() {
         const item = document.createElement('div');
         item.className = 'offer-list-item';
         const date = offer.createdAt ? new Date(offer.createdAt).toLocaleDateString() : '';
+        const offerURL = buildOfferURL(offer);
         item.innerHTML = `
             <div class="offer-list-info">
                 <h3>${offer.candidateName}</h3>
@@ -108,7 +107,7 @@ function renderOffersList() {
             </div>
             <div class="offer-list-actions">
                 <button class="copy-link-btn" onclick="copyOfferLink('${offer.id}')">Copy Link</button>
-                <a href="offer.html?id=${offer.id}" target="_blank" class="btn btn-primary btn-sm">View</a>
+                <a href="${offerURL}" target="_blank" class="btn btn-primary btn-sm">View</a>
             </div>
         `;
         list.appendChild(item);
@@ -116,11 +115,12 @@ function renderOffersList() {
 }
 
 function copyOfferLink(id) {
-    const url = `${window.location.origin}${window.location.pathname.replace('index.html', '')}offer.html?id=${id}`;
+    const offer = OfferStore.get(id);
+    if (!offer) return;
+    const url = buildOfferURL(offer);
     navigator.clipboard.writeText(url).then(() => {
         showToast('Link copied to clipboard!');
     }).catch(() => {
-        // Fallback
         prompt('Copy this link:', url);
     });
 }
