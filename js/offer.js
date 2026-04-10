@@ -85,9 +85,10 @@ function renderOffer(o) {
 
     colorMap.forEach(item => {
         if (item.amount > 0) {
+            const isEquity = item.label.includes('Equity');
             compRows += `
-                <div class="comp-row">
-                    <div class="comp-label"><span class="comp-dot" style="background:${item.color}"></span> ${item.label}</div>
+                <div class="comp-row${isEquity ? ' comp-row-link' : ''}"${isEquity ? ` onclick="document.getElementById('equity-section').scrollIntoView({behavior:'smooth'})"` : ''}>
+                    <div class="comp-label"><span class="comp-dot" style="background:${item.color}"></span> ${item.label}${isEquity ? ' <span style="font-size:12px;color:var(--purple);margin-left:4px;">↓</span>' : ''}</div>
                     <div class="comp-amount">${fmtCurrency(item.amount)}</div>
                 </div>`;
             chartLabels.push(item.label);
@@ -206,7 +207,7 @@ function renderOffer(o) {
             </div>
 
             <!-- Equity Section -->
-            <div class="section">
+            <div class="section" id="equity-section">
                 <div class="section-header">Equity Value</div>
                 <div class="equity-grid">
                     <div class="equity-stat">
