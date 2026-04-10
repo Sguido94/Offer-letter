@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeric - Offer Letters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/brand.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/store.js" defer></script>
+    <script src="js/admin.js" defer></script>
+</head>
+<body>
+    <nav class="admin-nav">
+        <div class="nav-inner">
+            <div class="logo-text">NUMERIC</div>
+            <span class="nav-badge">Offer Letter Manager</span>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Create Offer Letter</h1>
+            <p>Fill in the details below to generate a shareable offer letter page for your candidate.</p>
+        </div>
+
+        <form id="offerForm" class="offer-form">
+            <!-- Candidate Info -->
+            <fieldset class="form-section">
+                <legend>Candidate Information</legend>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="candidateName">Full Name *</label>
+                        <input type="text" id="candidateName" required placeholder="e.g. Sara Guido">
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Position *</label>
+                        <input type="text" id="position" required placeholder="e.g. Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label for="team">Team</label>
+                        <input type="text" id="team" placeholder="e.g. Engineering">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="e.g. San Francisco, CA" value="San Francisco, CA">
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="manager">Hiring Manager</label>
+                        <input type="text" id="manager" placeholder="e.g. Parker Gilbert">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Compensation -->
+            <fieldset class="form-section">
+                <legend>Compensation</legend>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="baseSalary">Base Salary ($) *</label>
+                        <input type="number" id="baseSalary" required placeholder="150000">
+                    </div>
+                    <div class="form-group">
+                        <label for="targetCommission">Target Commission ($)</label>
+                        <input type="number" id="targetCommission" placeholder="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="targetBonus">Target Bonus ($)</label>
+                        <input type="number" id="targetBonus" placeholder="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="signOnBonus">Sign-on Bonus ($)</label>
+                        <input type="number" id="signOnBonus" placeholder="0" value="0">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Equity -->
+            <fieldset class="form-section">
+                <legend>Equity</legend>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="shares">Number of Options *</label>
+                        <input type="number" id="shares" required placeholder="4000">
+                    </div>
+                    <div class="form-group">
+                        <label for="preferredPrice">Latest Preferred Price ($) *</label>
+                        <input type="number" id="preferredPrice" step="0.01" required placeholder="16.33" value="16.33">
+                    </div>
+                    <div class="form-group">
+                        <label for="strikePrice">Strike Price / 409A ($) *</label>
+                        <input type="number" id="strikePrice" step="0.01" required placeholder="3.98" value="3.98">
+                    </div>
+                    <div class="form-group">
+                        <label for="vestingYears">Vesting Period (years)</label>
+                        <input type="number" id="vestingYears" value="4" min="1" max="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="cliffMonths">Cliff (months)</label>
+                        <input type="number" id="cliffMonths" value="12" min="0" max="24">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastValuation">Last Round Valuation ($M)</label>
+                        <input type="number" id="lastValuation" placeholder="375" value="375">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastRoundName">Last Round Name</label>
+                        <input type="text" id="lastRoundName" placeholder="Series B" value="Series B">
+                    </div>
+                    <div class="form-group">
+                        <label for="equityType">Equity Type</label>
+                        <select id="equityType">
+                            <option value="ISO">ISOs (Incentive Stock Options)</option>
+                            <option value="NSO">NSOs (Non-Qualified Stock Options)</option>
+                            <option value="RSU">RSUs (Restricted Stock Units)</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Benefits -->
+            <fieldset class="form-section">
+                <legend>Benefits Highlights</legend>
+                <div class="benefits-editor">
+                    <div class="benefit-edit-row" data-index="0">
+                        <input type="text" class="benefit-title" value="Medical, Dental & Vision" placeholder="Benefit title">
+                        <textarea class="benefit-desc" rows="2" placeholder="Description">100% of gold tier medical, dental, and vision covered by the company. 50% for dependents. Option to upgrade to platinum for approximately $70/month.</textarea>
+                    </div>
+                    <div class="benefit-edit-row" data-index="1">
+                        <input type="text" class="benefit-title" value="Unlimited PTO" placeholder="Benefit title">
+                        <textarea class="benefit-desc" rows="2" placeholder="Description">Take the time you need to recharge. We trust you to manage your time and deliver great work while maintaining a healthy work-life balance.</textarea>
+                    </div>
+                    <div class="benefit-edit-row" data-index="2">
+                        <input type="text" class="benefit-title" value="401(k) Plan" placeholder="Benefit title">
+                        <textarea class="benefit-desc" rows="2" placeholder="Description">Eligible to participate in our 401(k) retirement plan so you can start building for the future from day one.</textarea>
+                    </div>
+                    <div class="benefit-edit-row" data-index="3">
+                        <input type="text" class="benefit-title" value="Equity Ownership" placeholder="Benefit title">
+                        <textarea class="benefit-desc" rows="2" placeholder="Description">As an early team member, your stock options give you meaningful ownership in Numeric's growth and success.</textarea>
+                    </div>
+                    <div class="benefit-edit-row" data-index="4">
+                        <input type="text" class="benefit-title" value="Commuter Benefits" placeholder="Benefit title">
+                        <textarea class="benefit-desc" rows="2" placeholder="Description">Pre-tax commuter benefits to help cover the cost of your daily commute, whether by public transit or parking.</textarea>
+                    </div>
+                    <div class="benefit-edit-row" data-index="5">
+                        <input type="text" class="benefit-title" value="Learning & Development" placeholder="Benefit title">
+                        <textarea class="benefit-desc" rows="2" placeholder="Description">Annual stipend for conferences, courses, and books to support your continuous professional growth.</textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="button" id="previewBtn" class="btn btn-secondary">Preview</button>
+                <button type="submit" class="btn btn-primary">Generate Shareable Link</button>
+            </div>
+        </form>
+
+        <!-- Generated offers list -->
+        <div id="offersListSection" class="offers-list-section" style="display:none;">
+            <h2>Generated Offers</h2>
+            <div id="offersList" class="offers-list"></div>
+        </div>
+    </div>
+
+    <footer class="admin-footer">
+        <div class="logo-text-sm">NUMERIC</div>
+        <p>Internal tool - Offer Letter Generator</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,268 @@
+/* Admin / Form Styles */
+.admin-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-badge {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--purple);
+    background: var(--purple-light);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.admin-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+}
+
+.admin-header {
+    margin-bottom: 40px;
+}
+
+.admin-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.admin-header p {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* Form */
+.offer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.form-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+}
+
+.form-section legend {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--black);
+    padding: 0 8px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-xs);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--black);
+    background: var(--white);
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(112, 54, 255, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #ccc;
+}
+
+/* Benefits editor */
+.benefits-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.benefit-edit-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.benefit-edit-row input,
+.benefit-edit-row textarea {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-xs);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--black);
+    transition: border-color 0.2s;
+}
+
+.benefit-edit-row input:focus,
+.benefit-edit-row textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(112, 54, 255, 0.1);
+}
+
+/* Actions */
+.form-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+}
+
+/* Offers list */
+.offers-list-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 2px solid var(--border);
+}
+
+.offers-list-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.offers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.offer-list-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: box-shadow 0.2s;
+}
+
+.offer-list-item:hover {
+    box-shadow: var(--shadow-card);
+}
+
+.offer-list-info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.offer-list-info p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.offer-list-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.copy-link-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.copy-link-btn:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+}
+
+/* Footer */
+.admin-footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+}
+
+.admin-footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+/* Toast notification */
+.toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--black);
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: var(--radius-xs);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.toast.visible {
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .benefit-edit-row { grid-template-columns: 1fr; }
+    .form-actions { flex-direction: column; }
+    .admin-header h1 { font-size: 28px; }
+}
