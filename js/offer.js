@@ -169,7 +169,7 @@ function renderOffer(o) {
         <!-- Hero -->
         <div class="hero">
             <video class="hero-video" autoplay muted loop playsinline>
-                <source src="assets/Numeric-data-motion-01-purple-black.mp4" type="video/mp4">
+                <source src="assets/Numeric-data-motion-01-purple-white.mp4" type="video/mp4">
             </video>
             <div class="hero-content">
                 <img src="assets/logo-white.svg" alt="Numeric" class="hero-logo">
