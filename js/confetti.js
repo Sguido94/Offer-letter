@@ -1,40 +1,52 @@
 /**
- * Confetti + Fireworks splash screen
- * Full-screen celebration that reveals the offer letter
+ * Splash screen: motion video → logo reveal → fade out
+ * Confetti: triggered by "I accept!" button
  */
 (function () {
+    // ==========================================
+    // SPLASH — video plays, logo fades in, then out
+    // ==========================================
+    const splash = document.getElementById('splash');
+    if (splash) {
+        const logoEl = document.getElementById('splashLogo');
+
+        // Show logo after 2s
+        setTimeout(() => {
+            if (logoEl) logoEl.classList.add('visible');
+        }, 2000);
+
+        // Fade out splash after 4s
+        setTimeout(() => {
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+            }, 800);
+        }, 4000);
+    }
+
+    // ==========================================
+    // CONFETTI — celebration on "I accept!"
+    // ==========================================
     const canvas = document.getElementById('confetti-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    const splash = document.getElementById('splash');
 
-    // Brand colors for confetti
     const colors = [
-        '#7036FF', // purple
-        '#9B6DFF', // light purple
-        '#FD742F', // orange
-        '#E9EBD6', // green accent
-        '#FAF8F5', // paper/white
-        '#FFD700', // gold
-        '#FF6B9D', // pink
-        '#44094A', // dark purple
+        '#7036FF', '#9B6DFF', '#FD742F', '#E9EBD6',
+        '#FAF8F5', '#FFD700', '#FF6B9D', '#44094A',
     ];
 
     let particles = [];
     let fireworks = [];
     let W, H;
     let animFrame;
-    let startTime;
-    let logoShown = false;
+    let confettiInterval;
 
     function resize() {
         W = canvas.width = window.innerWidth;
         H = canvas.height = window.innerHeight;
     }
-    resize();
-    window.addEventListener('resize', resize);
 
-    // ---- Confetti particle ----
     class Confetti {
         constructor(x, y) {
             this.x = x || Math.random() * W;
@@ -52,7 +64,7 @@
         update() {
             this.x += this.vx;
             this.y += this.vy;
-            this.vy += 0.04; // gravity
+            this.vy += 0.04;
             this.rot += this.rotSpeed;
             this.vx *= 0.99;
         }
@@ -73,7 +85,6 @@
         }
     }
 
-    // ---- Firework burst ----
     class FireworkParticle {
         constructor(x, y) {
             this.x = x;
@@ -98,7 +109,6 @@
             this.life -= this.decay;
         }
         draw() {
-            // Trail
             this.trail.forEach((t, i) => {
                 ctx.globalAlpha = t.life * 0.3 * (i / this.trail.length);
                 ctx.fillStyle = this.color;
@@ -106,13 +116,11 @@
                 ctx.arc(t.x, t.y, this.size * 0.5, 0, Math.PI * 2);
                 ctx.fill();
             });
-            // Main particle
             ctx.globalAlpha = this.life;
             ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
-            // Glow
             ctx.globalAlpha = this.life * 0.3;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
@@ -124,7 +132,6 @@
         for (let i = 0; i < count; i++) {
             fireworks.push(new FireworkParticle(x, y));
         }
-        // Also spawn confetti from the burst
         for (let i = 0; i < 15; i++) {
             const c = new Confetti(x, y);
             c.vx = (Math.random() - 0.5) * 8;
@@ -133,76 +140,55 @@
         }
     }
 
-    // Schedule firework bursts — boom boom boom
-    const burstSchedule = [
-        { time: 200,  x: () => W * 0.3, y: () => H * 0.25, count: 50 },
-        { time: 600,  x: () => W * 0.7, y: () => H * 0.2,  count: 60 },
-        { time: 1000, x: () => W * 0.5, y: () => H * 0.3,  count: 70 },
-        { time: 1400, x: () => W * 0.2, y: () => H * 0.35, count: 45 },
-        { time: 1700, x: () => W * 0.8, y: () => H * 0.25, count: 55 },
-        { time: 2100, x: () => W * 0.5, y: () => H * 0.2,  count: 80 },
-    ];
-    let burstIndex = 0;
-
-    // Also rain confetti from the top continuously
-    let confettiInterval = setInterval(() => {
-        for (let i = 0; i < 5; i++) {
-            particles.push(new Confetti());
-        }
-    }, 100);
-
-    // ---- Animation loop ----
     function animate(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-
         ctx.clearRect(0, 0, W, H);
 
-        // Trigger scheduled bursts
-        while (burstIndex < burstSchedule.length && elapsed >= burstSchedule[burstIndex].time) {
-            const b = burstSchedule[burstIndex];
-            burst(b.x(), b.y(), b.count);
-            burstIndex++;
-        }
-
-        // Update and draw firework particles
         fireworks = fireworks.filter(p => p.life > 0);
         fireworks.forEach(p => { p.update(); p.draw(); });
 
-        // Update and draw confetti
         particles = particles.filter(p => p.y < H + 50 && p.opacity > 0);
         particles.forEach(p => { p.update(); p.draw(); });
 
         ctx.globalAlpha = 1;
 
-        // Phase 1: After 2s, stop new confetti and show logo
-        if (elapsed > 2000 && !logoShown) {
-            logoShown = true;
-            clearInterval(confettiInterval);
-            const logoEl = document.getElementById('splashLogo');
-            if (logoEl) logoEl.classList.add('visible');
+        if (fireworks.length > 0 || particles.length > 0) {
+            animFrame = requestAnimationFrame(animate);
+        } else {
+            // All done — hide canvas
+            canvas.style.display = 'none';
+        }
+    }
+
+    // Expose global function for the "I accept" button
+    window.triggerCelebration = function () {
+        resize();
+        window.addEventListener('resize', resize);
+        canvas.style.display = 'block';
+        particles = [];
+        fireworks = [];
+
+        // Initial confetti rain
+        for (let i = 0; i < 60; i++) {
+            particles.push(new Confetti());
         }
 
-        // Phase 2: After 4s (logo has been visible ~2s), fade out splash
-        if (elapsed > 4000) {
-            const fadeProgress = Math.min((elapsed - 4000) / 800, 1);
-            splash.style.opacity = 1 - fadeProgress;
+        // Boom boom boom — staggered firework bursts
+        burst(W * 0.3, H * 0.25, 50);
+        setTimeout(() => burst(W * 0.7, H * 0.2, 60), 300);
+        setTimeout(() => burst(W * 0.5, H * 0.35, 70), 600);
+        setTimeout(() => burst(W * 0.2, H * 0.4, 45), 900);
+        setTimeout(() => burst(W * 0.8, H * 0.3, 55), 1200);
+        setTimeout(() => burst(W * 0.5, H * 0.2, 80), 1500);
 
-            if (fadeProgress >= 1) {
-                splash.style.display = 'none';
-                cancelAnimationFrame(animFrame);
-                return;
+        // Rain confetti for 3 seconds
+        confettiInterval = setInterval(() => {
+            for (let i = 0; i < 6; i++) {
+                particles.push(new Confetti());
             }
-        }
+        }, 80);
+
+        setTimeout(() => clearInterval(confettiInterval), 3000);
 
         animFrame = requestAnimationFrame(animate);
-    }
-
-    // Kick it off
-    animFrame = requestAnimationFrame(animate);
-
-    // Initial burst of confetti
-    for (let i = 0; i < 40; i++) {
-        particles.push(new Confetti());
-    }
+    };
 })();

@@ -326,6 +326,19 @@ function renderOffer(o) {
                 </div>
             </div>
 
+            <!-- Accept CTA -->
+            <div class="accept-section" id="acceptSection">
+                <h2 class="accept-heading">Ready to join Numeric?</h2>
+                <p class="accept-subtext">We can't wait to have you on the team.</p>
+                <button class="btn-accept" id="acceptBtn" onclick="handleAccept()">
+                    I accept!
+                </button>
+                <div class="accept-confirmed" id="acceptConfirmed" style="display:none;">
+                    <span class="accept-check">&#10003;</span>
+                    <p>We're so excited, ${firstName(o.candidateName)}! See you on <strong>${startDateStr}</strong>.</p>
+                </div>
+            </div>
+
             <!-- Footnotes -->
             <div class="footnotes">
                 <p>[1] Based on the Company's most recent preferred financing stock price and is not a guarantee of present or future value. Future valuations may be higher or substantially lower.</p>
@@ -404,6 +417,21 @@ function initEquityCalculator(o) {
 
     slider.addEventListener('input', updateCalc);
     updateCalc(); // Initialize
+}
+
+function handleAccept() {
+    const btn = document.getElementById('acceptBtn');
+    const confirmed = document.getElementById('acceptConfirmed');
+    btn.style.display = 'none';
+    confirmed.style.display = 'flex';
+
+    // Trigger confetti celebration
+    if (window.triggerCelebration) {
+        window.triggerCelebration();
+    }
+
+    // Scroll to make the confirmation visible
+    confirmed.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function renderDonutChart(labels, data, colors) {

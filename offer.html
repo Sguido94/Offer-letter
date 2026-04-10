@@ -14,13 +14,18 @@
 </head>
 <body>
 
-    <!-- Splash Screen — confetti then logo reveal -->
+    <!-- Splash Screen — motion video then logo reveal -->
     <div id="splash">
-        <canvas id="confetti-canvas"></canvas>
+        <video class="splash-video" autoplay muted playsinline>
+            <source src="assets/Numeric-data-motion-01-purple-white.mp4" type="video/mp4">
+        </video>
         <div class="splash-logo-wrap" id="splashLogo">
             <img src="assets/logo-white.svg" alt="Numeric" class="splash-logo" width="200">
         </div>
     </div>
+
+    <!-- Confetti canvas for "I accept" celebration (hidden until triggered) -->
+    <canvas id="confetti-canvas"></canvas>
 
     <!-- Content rendered by JS -->
     <div id="app"></div>

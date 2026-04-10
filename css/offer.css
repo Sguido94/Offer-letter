@@ -15,13 +15,25 @@
     overflow: hidden;
 }
 
-#confetti-canvas {
+.splash-video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    pointer-events: none;
+    display: none;
 }
 
 .splash-logo-wrap {
@@ -739,6 +751,81 @@
     font-size: 28px;
     color: var(--green-dark);
     letter-spacing: -0.3px;
+}
+
+/* ========================================
+   ACCEPT CTA
+   ======================================== */
+.accept-section {
+    text-align: center;
+    padding: 60px 40px;
+    margin: 20px 0;
+}
+
+.accept-heading {
+    font-family: 'Arizona Flare', 'DM Serif Display', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--black);
+    margin-bottom: 8px;
+}
+
+.accept-subtext {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+.btn-accept {
+    display: inline-block;
+    padding: 18px 56px;
+    font-family: 'Booton', 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background: var(--purple);
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 4px 20px rgba(112, 54, 255, 0.3);
+}
+
+.btn-accept:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(112, 54, 255, 0.45);
+    background: #6228e0;
+}
+
+.btn-accept:active {
+    transform: translateY(0);
+}
+
+.accept-confirmed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.accept-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.accept-confirmed p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 400px;
 }
 
 /* ========================================
