@@ -217,6 +217,39 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.offer-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn-sm {
+    padding: 6px 14px !important;
+    font-size: 13px !important;
+}
+
+.btn-danger {
+    background: #fff0f0 !important;
+    color: #c0392b !important;
+    border: 1px solid #f5c6c6 !important;
+}
+
+.btn-danger:hover {
+    background: #c0392b !important;
+    color: white !important;
+    border-color: #c0392b !important;
+}
+
+.btn-editing {
+    background: #f0edff !important;
+    color: var(--purple) !important;
+    border: 2px solid var(--purple) !important;
 }
 
 .copy-link-btn {
