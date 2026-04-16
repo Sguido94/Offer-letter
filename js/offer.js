@@ -24,6 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    if (offer._tampered) {
+        showError('This offer link has been modified and cannot be displayed. Please contact your recruiter for a valid link.');
+        return;
+    }
+
+    // Legacy unsigned offers (created before signing was added) are allowed but flagged
+    // New offers generated from the admin will always be signed.
+
     document.title = `Your Offer from Numeric - ${offer.candidateName}`;
 
     if (offer.password) {

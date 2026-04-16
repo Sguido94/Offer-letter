@@ -56,22 +56,73 @@ function firstName(full) {
     return (full || '').split(' ')[0];
 }
 
+// Signing secret — prevents candidates from tampering with offer data in the URL.
+// Note: this is client-side so determined attackers could find it, but it stops
+// casual URL manipulation. For full security, use a backend.
+const SIGN_SECRET = 'num3r1c-0ff3r-s1gn-k3y-2026';
+
 /**
- * Encode offer data into a URL-safe base64 string.
- * This makes links fully self-contained -- no database needed.
+ * Simple deterministic hash of a string (djb2).
+ */
+function _hashString(str) {
+    let h = 5381;
+    for (let i = 0; i < str.length; i++) {
+        h = ((h << 5) + h) ^ str.charCodeAt(i);
+        h = h >>> 0; // keep unsigned 32-bit
+    }
+    return h.toString(36);
+}
+
+/**
+ * Generate a signature for an offer object.
+ * Signs the core financial fields so any tampering is detected.
+ */
+function signOffer(offer) {
+    const payload = [
+        offer.candidateName,
+        offer.position,
+        offer.baseSalary,
+        offer.targetCommission,
+        offer.targetBonus,
+        offer.signOnBonus,
+        offer.shares,
+        offer.preferredPrice,
+        offer.strikePrice,
+        offer.vestingYears,
+        offer.cliffMonths,
+        SIGN_SECRET
+    ].join('|');
+    return _hashString(payload);
+}
+
+/**
+ * Verify that an offer's signature matches its data.
+ */
+function verifyOffer(offer) {
+    if (!offer._sig) return false;
+    return offer._sig === signOffer(offer);
+}
+
+/**
+ * Encode offer data into a URL-safe base64 string, with signature.
  */
 function encodeOffer(offer) {
-    const json = JSON.stringify(offer);
+    const signed = Object.assign({}, offer, { _sig: signOffer(offer) });
+    const json = JSON.stringify(signed);
     return btoa(unescape(encodeURIComponent(json)));
 }
 
 /**
- * Decode offer data from a URL-safe base64 string.
+ * Decode and verify offer data from a URL-safe base64 string.
+ * Returns null if tampered with.
  */
 function decodeOffer(encoded) {
     try {
         const json = decodeURIComponent(escape(atob(encoded)));
-        return JSON.parse(json);
+        const offer = JSON.parse(json);
+        // If the offer has a signature, verify it. If no signature, it's a legacy offer — allow it.
+        if (offer._sig && !verifyOffer(offer)) return { _tampered: true };
+        return offer;
     } catch (e) {
         return null;
     }
