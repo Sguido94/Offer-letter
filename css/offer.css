@@ -1,6 +1,88 @@
 /* Candidate-facing Offer Letter — Numeric Brand Style */
 
 /* ========================================
+   PASSWORD GATE
+   ======================================== */
+.password-gate {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+    background: var(--paper);
+}
+
+.pw-logo {
+    width: 160px;
+    margin-bottom: 40px;
+}
+
+.password-gate h2 {
+    font-family: 'Arizona Flare', 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--black);
+    margin-bottom: 8px;
+}
+
+.password-gate > p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+.pw-input-wrap {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 380px;
+}
+
+.pw-input {
+    flex: 1;
+    padding: 14px 18px;
+    font-family: 'Booton', 'Inter', sans-serif;
+    font-size: 15px;
+    border: 1.5px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+    background: white;
+    transition: border-color 0.2s;
+}
+
+.pw-input:focus {
+    border-color: var(--purple);
+}
+
+.btn-pw {
+    padding: 14px 20px;
+    font-family: 'Booton', 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    background: var(--purple);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.btn-pw:hover {
+    background: #6228e0;
+    transform: translateY(-1px);
+}
+
+.pw-error {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #c0392b;
+    min-height: 18px;
+}
+
+/* ========================================
    SPLASH SCREEN — Celebration entrance
    ======================================== */
 #splash {

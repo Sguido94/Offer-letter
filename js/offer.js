@@ -25,7 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.title = `Your Offer from Numeric - ${offer.candidateName}`;
-    renderOffer(offer);
+
+    if (offer.password) {
+        showPasswordGate(offer);
+    } else {
+        renderOffer(offer);
+    }
 });
 
 function showError(msg) {
@@ -37,6 +42,42 @@ function showError(msg) {
         </div>
     `;
 }
+
+function showPasswordGate(offer) {
+    const app = document.getElementById('app');
+    app.innerHTML = `
+        <div class="password-gate">
+            <img src="assets/logo-black.svg" alt="Numeric" class="pw-logo">
+            <h2>You have an offer from Numeric</h2>
+            <p>Enter the password to view your offer letter.</p>
+            <div class="pw-input-wrap">
+                <input type="password" id="pwInput" class="pw-input" placeholder="Password" autofocus>
+                <button class="btn-pw" onclick="checkPassword()">View Offer →</button>
+            </div>
+            <p class="pw-error" id="pwError"></p>
+        </div>
+    `;
+
+    window._pendingOffer = offer;
+
+    // Allow enter key
+    document.getElementById('pwInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') checkPassword();
+    });
+}
+
+window.checkPassword = function () {
+    const input = document.getElementById('pwInput').value.trim();
+    const offer = window._pendingOffer;
+    if (input.toLowerCase() === offer.password.toLowerCase()) {
+        renderOffer(offer);
+    } else {
+        const err = document.getElementById('pwError');
+        err.textContent = 'Incorrect password. Please try again.';
+        document.getElementById('pwInput').value = '';
+        document.getElementById('pwInput').focus();
+    }
+};
 
 function renderOffer(o) {
     // Computed values
@@ -428,21 +469,6 @@ function handleAccept() {
     // Trigger confetti celebration
     if (window.triggerCelebration) {
         window.triggerCelebration();
-    }
-
-    // Send acceptance email notification
-    const offer = decodeOffer(window.location.hash.slice(1));
-    if (offer) {
-        const to = 'sara@numeric.io,sam@numeric.io,parker@numeric.io';
-        const subject = encodeURIComponent(`${offer.candidateName} has accepted their offer!`);
-        const body = encodeURIComponent(
-            `Great news!\n\n${offer.candidateName} has accepted the ${offer.position} offer at Numeric.\n\n` +
-            `Start Date: ${offer.startDate}\n` +
-            `Base Salary: ${fmtCurrency(offer.baseSalary)}\n` +
-            `Equity: ${offer.shares.toLocaleString()} shares\n\n` +
-            `— Sent automatically from the Numeric Offer Letter`
-        );
-        window.open(`mailto:${to}?subject=${subject}&body=${body}`, '_self');
     }
 
     // Scroll to make the confirmation visible

@@ -73,6 +73,7 @@ function collectFormData() {
         lastValuation: Number(document.getElementById('lastValuation').value) || 0,
         lastRoundName: document.getElementById('lastRoundName').value.trim(),
         equityType: document.getElementById('equityType').value,
+        password: document.getElementById('offerPassword').value.trim() || null,
         benefits
     };
 }
