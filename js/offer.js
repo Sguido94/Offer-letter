@@ -144,20 +144,16 @@ function renderOffer(o) {
         }
     });
 
-    // Total cash comp
+    // OTE total row
+    const oteValue = o.ote || totalCashComp;
     compRows += `
-        <div class="comp-row">
-            <div class="comp-label">Total Cash Comp</div>
-            <div class="comp-amount">${fmtCurrency(totalCashComp)}</div>
-        </div>`;
-
-    if (o.ote) {
-        compRows += `
         <div class="comp-row comp-ote-row">
             <div class="comp-label">On-Target Earnings (OTE)</div>
-            <div class="comp-amount">${fmtCurrency(o.ote)}</div>
+            <div class="comp-amount">${fmtCurrency(oteValue)}</div>
+        </div>
+        <div class="comp-extra-info">
+            <p>OTE assumes 100% quota attainment and includes a 2-month ramp period.</p>
         </div>`;
-    }
 
     if (o.extraInfo) {
         compRows += `
