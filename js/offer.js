@@ -245,8 +245,8 @@ function renderOffer(o) {
                     <div class="donut-wrap">
                         <canvas id="compDonut"></canvas>
                         <div class="donut-center">
-                            <div class="donut-label">Total Comp</div>
-                            <div class="donut-value">${fmtCompact(totalWithBenefits)}</div>
+                            <div class="donut-label">OTE</div>
+                            <div class="donut-value">${fmtCompact(oteValue)}</div>
                         </div>
                     </div>
                     <div class="comp-table">
