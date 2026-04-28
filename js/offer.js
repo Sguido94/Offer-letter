@@ -93,7 +93,7 @@ function renderOffer(o) {
     const costToExercise = o.shares * o.strikePrice;
     const netEquityValue = grantValue - costToExercise;
     const equityYear1 = grantValue / o.vestingYears;
-    const totalCashComp = o.baseSalary + o.targetCommission + o.targetBonus + o.signOnBonus;
+    const totalCashComp = o.baseSalary + (o.targetCommission || 0);
     const totalFirstYear = totalCashComp + equityYear1;
     const estimatedBenefits = 32720; // Approximate standard benefits value
     const totalWithBenefits = totalFirstYear + estimatedBenefits;
