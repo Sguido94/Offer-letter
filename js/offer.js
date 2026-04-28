@@ -118,7 +118,7 @@ function renderOffer(o) {
         { icon: '\u2605', label: 'learning' },
     ];
 
-    // Build compensation rows
+    // Build compensation rows — Base Salary, Commission, OTE only
     let compRows = '';
     const chartLabels = [];
     const chartData = [];
@@ -130,14 +130,12 @@ function renderOffer(o) {
     if (o.targetCommission > 0) colorMap.push({ color: '#FD742F', label: 'Target Commission', amount: o.targetCommission });
     if (o.targetBonus > 0) colorMap.push({ color: '#C5CC7F', label: 'Target Bonus', amount: o.targetBonus });
     if (o.signOnBonus > 0) colorMap.push({ color: '#6D7242', label: 'Sign-on Bonus', amount: o.signOnBonus });
-    colorMap.push({ color: '#44094A', label: `Equity (first 12 months)`, amount: equityYear1 });
 
     colorMap.forEach(item => {
         if (item.amount > 0) {
-            const isEquity = item.label.includes('Equity');
             compRows += `
-                <div class="comp-row${isEquity ? ' comp-row-link' : ''}"${isEquity ? ` onclick="document.getElementById('equity-section').scrollIntoView({behavior:'smooth'})"` : ''}>
-                    <div class="comp-label"><span class="comp-dot" style="background:${item.color}"></span><span>${item.label}${isEquity ? ' <span style="font-size:12px;color:var(--purple);">↓</span>' : ''}</span></div>
+                <div class="comp-row">
+                    <div class="comp-label"><span class="comp-dot" style="background:${item.color}"></span><span>${item.label}</span></div>
                     <div class="comp-amount">${fmtCurrency(item.amount)}</div>
                 </div>`;
             chartLabels.push(item.label);
@@ -146,21 +144,27 @@ function renderOffer(o) {
         }
     });
 
-    // Estimated benefits row
-    compRows += `
-        <div class="comp-row comp-row-link" onclick="document.getElementById('benefits-section').scrollIntoView({behavior:'smooth'})">
-            <div class="comp-label"><span class="comp-dot" style="background:#E9EBD6"></span><span>Estimated Benefits <span style="font-size:12px;color:var(--purple);">↓</span></span></div>
-            <div class="comp-amount">${fmtCurrency(estimatedBenefits)}</div>
-        </div>`;
-    chartLabels.push('Est. Benefits');
-    chartData.push(estimatedBenefits);
-    chartColors.push('#E9EBD6');
-
+    // Total cash comp
     compRows += `
         <div class="comp-row">
-            <div class="comp-label">Total First Year Comp</div>
-            <div class="comp-amount">${fmtCurrency(totalWithBenefits)}</div>
+            <div class="comp-label">Total Cash Comp</div>
+            <div class="comp-amount">${fmtCurrency(totalCashComp)}</div>
         </div>`;
+
+    if (o.ote) {
+        compRows += `
+        <div class="comp-row comp-ote-row">
+            <div class="comp-label">On-Target Earnings (OTE)</div>
+            <div class="comp-amount">${fmtCurrency(o.ote)}</div>
+        </div>`;
+    }
+
+    if (o.extraInfo) {
+        compRows += `
+        <div class="comp-extra-info">
+            <p>${o.extraInfo}</p>
+        </div>`;
+    }
 
     // Detail items
     let detailItems = `
