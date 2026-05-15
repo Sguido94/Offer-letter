@@ -242,7 +242,7 @@ function renderOffer(o) {
                         <canvas id="compDonut"></canvas>
                         <div class="donut-center">
                             <div class="donut-label">Total Comp</div>
-                            <div class="donut-value">${fmtCompact(totalCashComp)}</div>
+                            <div class="donut-value">${fmtCompact(totalWithBenefits)}</div>
                         </div>
                     </div>
                     <div class="comp-table">
