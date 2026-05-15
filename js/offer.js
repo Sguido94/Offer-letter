@@ -144,6 +144,14 @@ function renderOffer(o) {
         }
     });
 
+    // Add equity + benefits to chart only (not the table)
+    chartLabels.push('Equity (Year 1)');
+    chartData.push(Math.round(equityYear1));
+    chartColors.push('#44094A');
+    chartLabels.push('Benefits');
+    chartData.push(estimatedBenefits);
+    chartColors.push('#C5B8F8');
+
     // Total cash comp row
     compRows += `
         <div class="comp-row">
