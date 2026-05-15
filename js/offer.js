@@ -152,11 +152,22 @@ function renderOffer(o) {
     chartData.push(estimatedBenefits);
     chartColors.push('#C5B8F8');
 
-    // Total cash comp row
+    // Equity + benefits rows (chart-only segments mirrored in table)
     compRows += `
         <div class="comp-row">
-            <div class="comp-label">Total Cash Comp</div>
-            <div class="comp-amount">${fmtCurrency(totalCashComp)}</div>
+            <div class="comp-label"><span class="comp-dot" style="background:#44094A"></span><span>Equity (Year 1)</span></div>
+            <div class="comp-amount">${fmtCurrency(Math.round(equityYear1))}</div>
+        </div>
+        <div class="comp-row">
+            <div class="comp-label"><span class="comp-dot" style="background:#C5B8F8"></span><span>Benefits</span></div>
+            <div class="comp-amount">${fmtCurrency(estimatedBenefits)}</div>
+        </div>`;
+
+    // Total comp row
+    compRows += `
+        <div class="comp-row">
+            <div class="comp-label">Total Comp</div>
+            <div class="comp-amount">${fmtCurrency(Math.round(totalWithBenefits))}</div>
         </div>`;
 
     if (o.extraInfo) {
