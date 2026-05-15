@@ -163,11 +163,11 @@ function renderOffer(o) {
             <div class="comp-amount">${fmtCurrency(estimatedBenefits)}</div>
         </div>`;
 
-    // Total comp row
+    // Cash comp total row
     compRows += `
         <div class="comp-row">
-            <div class="comp-label">Total Comp</div>
-            <div class="comp-amount">${fmtCurrency(Math.round(totalWithBenefits))}</div>
+            <div class="comp-label">Cash Comp</div>
+            <div class="comp-amount">${fmtCurrency(o.baseSalary)}</div>
         </div>`;
 
     if (o.extraInfo) {
